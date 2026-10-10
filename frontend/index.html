@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en" data-motion="auto">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>NEXORA - Your Personal Media Universe</title>
+  <meta name="description" content="NEXORA is a private media library for the files on your own phone. Created By Shiv Yogi.">
+  <meta name="theme-color" content="#050a18">
+  <meta name="color-scheme" content="dark">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https: http://localhost:* http://127.0.0.1:*; media-src 'self' https: http://localhost:* http://127.0.0.1:*; connect-src 'self' https: http://localhost:* http://127.0.0.1:*; frame-src https: http://localhost:* http://127.0.0.1:*; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="sr-status" class="sr-only" role="status" aria-live="polite"></div>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+
+  <noscript><p class="noscript">NEXORA needs JavaScript to run. Turn it on for this site and reload the page.</p></noscript>
+
+  <!-- Opening sequence: logo, creator credit, then login -->
+  <div id="intro" class="intro" role="presentation" hidden>
+    <div class="intro-glow"></div>
+    <div class="intro-stage intro-brand">
+      <svg class="intro-orbit" viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <linearGradient id="ig" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3d7bff"/><stop offset="1" stop-color="#a074ff"/></linearGradient>
+        </defs>
+        <circle class="orbit-ring" cx="60" cy="60" r="44" fill="none" stroke="url(#ig)" stroke-width="3" stroke-linecap="round"/>
+        <ellipse class="orbit-ring2" cx="60" cy="60" rx="52" ry="18" fill="none" stroke="url(#ig)" stroke-width="2" opacity=".7" transform="rotate(-24 60 60)"/>
+        <g class="orbit-spin"><circle cx="60" cy="16" r="5" fill="#9ae5ff"/></g>
+        <circle cx="60" cy="60" r="9" fill="url(#ig)"/>
+      </svg>
+      <h1 class="intro-word" aria-label="NEXORA"><span>N</span><span>E</span><span>X</span><span>O</span><span>R</span><span>A</span></h1>
+      <p class="intro-tag">Your Personal Media Universe</p>
+      <div class="intro-streak" aria-hidden="true"></div>
+    </div>
+    <div class="intro-stage intro-credit">
+      <p class="credit-small">Created By</p>
+      <p class="credit-name">Shiv Yogi</p>
+      <div class="credit-line" aria-hidden="true"></div>
+    </div>
+    <button id="intro-skip" class="btn btn-ghost intro-skip" type="button">Skip intro</button>
+  </div>
+
+  <!-- Login -->
+  <main id="login-screen" class="login" hidden aria-labelledby="login-title">
+    <div class="login-card glass">
+      <div class="login-brand">
+        <img src="assets/logo.svg" alt="" width="44" height="44">
+        <div><p class="brand-word">NEXORA</p><p class="brand-tag">Your Personal Media Universe</p></div>
+      </div>
+      <h1 id="login-title">Welcome Back</h1>
+      <p class="muted login-lead">Enter your password to open your private library.</p>
+      <form id="login-form" novalidate>
+        <label for="login-password">Password</label>
+        <div class="field">
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required maxlength="256" aria-describedby="login-msg">
+          <button id="login-toggle" class="icon-btn" type="button" aria-label="Show password" aria-pressed="false"></button>
+        </div>
+        <div id="login-msg" class="form-msg" role="alert" aria-live="assertive"></div>
+        <button id="login-submit" class="btn btn-primary btn-block" type="submit"><span class="spinner" hidden></span><span class="btn-label">Log in</span></button>
+      </form>
+      <div id="login-offline" class="login-offline" hidden>
+        <p id="login-offline-text"></p>
+        <div class="row">
+          <button id="login-retry" class="btn" type="button">Retry connection</button>
+          <button id="login-game" class="btn btn-ghost" type="button">Play offline game</button>
+        </div>
+      </div>
+      <p class="fineprint">Your password is sent over HTTPS to the server on your phone to be checked. It is not end-to-end encrypted and it is never stored in this browser.</p>
+    </div>
+    <p class="creator-foot">Created By Shiv Yogi</p>
+  </main>
+
+  <!-- Offline -->
+  <section id="offline-screen" class="offline" hidden aria-labelledby="offline-title">
+    <div id="offline-panel" class="offline-panel glass">
+      <span id="offline-badge" class="badge badge-bad">Offline</span>
+      <h1 id="offline-title">NEXORA is Offline</h1>
+      <p id="offline-msg">Your mobile server is currently unavailable. Start the server on your phone to reconnect to your private media library.</p>
+      <p id="offline-cause" class="muted"></p>
+      <p id="offline-last" class="muted"></p>
+      <div class="row">
+        <button id="offline-retry" class="btn btn-primary" type="button"><span class="spinner" hidden></span><span class="btn-label">Retry Connection</span></button>
+        <button id="offline-play" class="btn btn-accent" type="button">Play Offline Game</button>
+      </div>
+      <details class="how">
+        <summary>How to bring the server back</summary>
+        <ol>
+          <li>Open Pydroid 3 on your phone.</li>
+          <li>Open <code>nexora_server.py</code> and run it (or run <code>run</code> from its menu).</li>
+          <li>Check that your Cloudflare Tunnel is also running.</li>
+          <li>Tap Retry Connection here.</li>
+        </ol>
+        <p class="muted">The connection can also fail because of your network, DNS, the tunnel, or a TLS problem, so a stopped server is only one possible cause.</p>
+      </details>
+    </div>
+    <div id="game-panel" class="game-panel glass" hidden>
+      <div class="game-head">
+        <button id="game-back" class="btn btn-ghost" type="button">Back</button>
+        <p class="game-title">Nova Run</p>
+        <button id="game-sound" class="btn btn-ghost" type="button" aria-pressed="false">Sound off</button>
+      </div>
+      <div id="game-mount"></div>
+      <p class="muted game-help">Space or Up arrow to jump, Down arrow to duck. On a touch screen tap to jump and hold Duck.</p>
+    </div>
+  </section>
+
+  <!-- App shell: desktop sidebar + toolbar, mobile top bar + bottom navigation -->
+  <div id="app" class="app" hidden>
+    <aside id="sidebar" class="sidebar glass" aria-label="Main navigation">
+      <a class="side-brand" href="#/home"><img src="assets/logo.svg" alt="" width="34" height="34"><span class="brand-word">NEXORA</span></a>
+      <nav id="side-nav" class="side-nav"></nav>
+      <div class="side-foot">
+        <span id="side-status" class="status-pill" role="status"></span>
+        <p class="creator-foot">Created By Shiv Yogi</p>
+      </div>
+    </aside>
+    <div class="shell">
+      <header class="toolbar" id="toolbar">
+        <button id="side-toggle" class="icon-btn only-tablet" type="button" aria-label="Toggle navigation" aria-expanded="false"></button>
+        <h2 id="toolbar-title" class="toolbar-title">Home</h2>
+        <form id="search-form" class="search" role="search">
+          <label for="search-input" class="sr-only">Search your library</label>
+          <input id="search-input" type="search" placeholder="Search your library" autocomplete="off" maxlength="100">
+        </form>
+        <span id="tool-status" class="status-pill" role="status"></span>
+        <a id="tool-upload" class="btn btn-primary" href="#/uploads"><span class="btn-label">Upload</span></a>
+      </header>
+      <header class="mobilebar" id="mobilebar">
+        <img src="assets/logo.svg" alt="" width="28" height="28">
+        <h2 id="mobile-title" class="mobile-title">Home</h2>
+        <button id="mobile-search" class="icon-btn" type="button" aria-label="Search"></button>
+        <span id="mobile-status" class="dot" role="status"></span>
+      </header>
+      <div id="banner" class="banner" hidden role="status"></div>
+      <main id="main" class="main" tabindex="-1"></main>
+      <footer class="app-foot">NEXORA <span id="app-version"></span> Created By Shiv Yogi</footer>
+    </div>
+    <div id="miniplayer" class="miniplayer glass" hidden></div>
+    <nav id="bottomnav" class="bottomnav glass" aria-label="Main navigation"></nav>
+  </div>
+
+  <div id="overlay-root"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
