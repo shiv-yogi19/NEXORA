@@ -1,0 +1,17 @@
+# NEXORA: never commit secrets or private data
+mobile-server/NEXORA_PRIVATE/
+NEXORA_PRIVATE/
+*.db
+*.db-wal
+*.db-shm
+*.bak-v*
+config.json
+!mobile-server/config.example.json
+*.log
+.env
+.env.*
+__pycache__/
+*.pyc
+*.part
+node_modules/
+.DS_Store
