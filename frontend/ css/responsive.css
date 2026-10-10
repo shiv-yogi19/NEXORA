@@ -1,0 +1,100 @@
+/* NEXORA - layouts per device class. Created By Shiv Yogi.
+   Desktop (>=1100px): persistent sidebar, toolbar, multi-column grids, side-by-side players.
+   Tablet (700-1099px): collapsible icon rail that expands on demand, flexible grids.
+   Mobile (<700px): compact top bar, bottom navigation, bottom-sheet menus, full-screen player.
+   These are separate arrangements of the same views, not one layout scaled down. */
+
+/* ---------- Tablet: collapsible rail ---------- */
+@media (max-width: 1099px) {
+  .app { grid-template-columns: 76px minmax(0, 1fr); }
+  .sidebar { width: 76px; padding: 14px 10px; transition: width .22s var(--ease); overflow-x: hidden; }
+  .sidebar .nav-label, .sidebar .brand-word, .sidebar .side-foot .creator-foot, .sidebar .side-foot .status-pill { display: none; }
+  .sidebar .nav-link { justify-content: center; padding: 10px; }
+  .sidebar .side-brand { justify-content: center; padding: 4px 0 14px; }
+  .nav-link[aria-current="page"]::before { left: -10px; }
+  .app.side-open .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 268px; z-index: 60; overflow-y: auto; box-shadow: 30px 0 80px rgba(0, 0, 0, .6); }
+  .app.side-open .sidebar .nav-label, .app.side-open .sidebar .brand-word { display: inline; }
+  .app.side-open .sidebar .side-foot .creator-foot, .app.side-open .sidebar .side-foot .status-pill { display: inline-flex; }
+  .app.side-open .sidebar .nav-link { justify-content: flex-start; padding: 10px 12px; }
+  .app.side-open .sidebar .side-brand { justify-content: flex-start; padding: 4px 10px 18px; }
+  .toolbar, .main, .app-foot { padding-left: 22px; padding-right: 22px; }
+  .banner { margin-left: 22px; margin-right: 22px; }
+  .miniplayer { left: 98px; right: 18px; }
+  .watch { grid-template-columns: 1fr; }
+  .expanded { grid-template-columns: 1fr; padding: 22px; }
+}
+@media (min-width: 1100px) { .only-tablet { display: none; } }
+
+/* ---------- Mobile: purpose-built compact layout ---------- */
+@media (max-width: 699px) {
+  body { font-size: 15px; }
+  .app { display: block; }
+  .sidebar { display: none; }
+  .toolbar { display: none; }
+  .mobilebar { display: flex; position: sticky; top: 0; z-index: 20; align-items: center; gap: 10px; padding: calc(10px + var(--safe-t)) 14px 10px; background: rgba(5, 10, 24, .88); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
+  .mobile-title { flex: 1; font-size: 18px; }
+  .main { padding: 16px 14px calc(150px + var(--safe-b)); }
+  .app-foot { padding: 0 14px calc(100px + var(--safe-b)); }
+  .banner { margin: 10px 14px 0; }
+  .bottomnav { position: fixed; z-index: 50; left: 10px; right: 10px; bottom: calc(10px + var(--safe-b)); display: grid; grid-template-columns: repeat(5, 1fr); padding: 6px; border-radius: 22px; }
+  .bottomnav a, .bottomnav button { appearance: none; border: 0; background: transparent; color: var(--ink-2); display: grid; justify-items: center; gap: 2px; padding: 8px 2px; min-height: 56px; border-radius: 16px; font: 600 11.5px var(--font-body); text-decoration: none; cursor: pointer; transition: background .16s var(--ease), transform .12s var(--ease); }
+  .bottomnav a:active, .bottomnav button:active { transform: scale(.92); background: rgba(255, 255, 255, .12); }
+  .bottomnav [aria-current="page"] { background: linear-gradient(180deg, rgba(61, 123, 255, .32), rgba(139, 92, 246, .2)); color: #fff; }
+  .miniplayer { left: 10px; right: 10px; bottom: calc(86px + var(--safe-b)); grid-template-columns: minmax(0, 1fr) auto; padding: 8px 10px; gap: 6px 8px; }
+  .miniplayer .mini-right { display: none; }
+  .mini-prog { grid-column: 1 / -1; grid-template-columns: 38px 1fr 38px; }
+  .page-head h2, .page-head h3 { font-size: 21px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .grid.photos { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; }
+  .hscroll { grid-auto-columns: 62%; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .toolrow .grow { flex-basis: 100%; }
+  .toolrow select { flex: 1; }
+  .monitor { grid-template-columns: 1fr; }
+  .panel { padding: 16px; }
+  .kv { grid-template-columns: 1fr; gap: 2px 0; } .kv dd { margin-bottom: 8px; }
+  /* tables become stacked cards */
+  .tablewrap { display: none; } .cards-m { display: grid; gap: 10px; }
+  /* sheets rise from the bottom */
+  .scrim { place-items: end center; padding: 0; }
+  .sheet { width: 100%; max-height: 88vh; border-radius: 24px 24px 0 0; padding: 18px 16px calc(18px + var(--safe-b)); }
+  .toasts { bottom: calc(100px + var(--safe-b)); }
+  /* full-screen music player */
+  .expanded { padding: calc(14px + var(--safe-t)) 16px calc(18px + var(--safe-b)); gap: 14px; align-content: start; }
+  .exp-art { width: min(300px, 78vw); }
+  .queue { max-height: none; }
+  /* video: sticky player on top, details below */
+  .videobox { margin: 0 -14px; border-radius: 0; border-left: 0; border-right: 0; position: sticky; top: calc(54px + var(--safe-t)); z-index: 5; }
+  .videobox video { max-height: 42vh; }
+  .watch-info h2 { font-size: 19px; }
+  .viewer .stage .navbtn { display: none; }
+  .viewer-bar .hide-m { display: none; }
+  .strip button { width: 52px; height: 52px; }
+  .setting { flex-wrap: wrap; }
+  .event time { min-width: 0; flex-basis: 100%; }
+  .linkbox { flex-direction: column; }
+  .game-panel { padding: 10px; }
+}
+@media (max-width: 380px) {
+  .grid { gap: 8px; }
+  .bottomnav a, .bottomnav button { font-size: 10.5px; }
+}
+
+/* ---------- Desktop refinements ---------- */
+@media (min-width: 1100px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 18px; }
+  .grid.photos { grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); }
+  .main { padding: 28px 36px 120px; }
+  .toolbar { padding: 14px 36px; }
+  .banner { margin: 14px 36px 0; }
+  .dash-cols { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 22px; align-items: start; }
+}
+@media (min-width: 1500px) {
+  .grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+  .main { padding-left: 48px; padding-right: 48px; }
+}
+@media (min-width: 700px) and (max-width: 1099px) {
+  .dash-cols { display: grid; gap: 22px; }
+  .bottomnav { display: none; }
+}
+.dash-cols > * { min-width: 0; }
