@@ -8,7 +8,7 @@
 // for example "https://nexora.example.com". It is the public address that forwards to the
 // Python server on your phone.
 export const CONFIG = {
-  API_BASE: "https://YOUR-TUNNEL-HOSTNAME.example.com",
+  API_BASE: "https://tableful-cardboard-erased.ngrok-free.dev",
 };
 
 export const APP_NAME = "NEXORA";
