@@ -1,0 +1,22 @@
+{
+  "_comment": "EXAMPLE ONLY. Do not fill this in by hand. Run `python nexora_server.py init` on the phone; it writes the real private config (with a password hash and a random session secret) OUTSIDE the library and OUTSIDE any repository.",
+  "version": 1,
+  "library_root": "/storage/emulated/0/NEXORA",
+  "allowed_origins": ["https://YOUR-GITHUB-USERNAME.github.io"],
+  "password_hash": "<created by init; never commit>",
+  "session_secret": "<created by init; never commit>",
+  "bind_host": "127.0.0.1",
+  "port": 8787,
+  "public_base_url": "https://YOUR-TUNNEL-HOSTNAME.example.com",
+  "cookie_secure": true,
+  "cookie_samesite": "None",
+  "session_hours": 12,
+  "idle_minutes": 240,
+  "uploads_enabled": true,
+  "upload_categories": ["Uploads", "Movies", "Music", "Photos", "Documents"],
+  "max_upload_mb": 500,
+  "min_free_space_mb": 200,
+  "login_max_failures": 5,
+  "login_lock_minutes": 15,
+  "telemetry_enabled": true
+}

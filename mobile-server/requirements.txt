@@ -1,0 +1,7 @@
+# Required
+flask>=3.0
+
+# Optional (the server runs without them and says "Unavailable" where a feature needs them)
+# waitress>=3.0     production-grade server instead of the Werkzeug development server
+# psutil>=5.9       CPU / memory telemetry on devices where /proc is restricted
+# Pillow>=10.0      image thumbnails and cover art
